@@ -1,0 +1,33 @@
+{% extends "groups_base.html" %}
+
+
+{% block users %}
+
+<div class="main-cont" style="padding: 1rem;width: 300px;overflow: unset;">
+
+      <h5 class="flex-center mb-3">ПОЛЬЗОВАТЕЛИ</h5>
+  
+      <table>
+            <thead>
+                <tr>
+                    <th style="width: 33%;">ФИО</th>
+                    <th style="width: 33%;">Баллы</th>
+                    <th style="width: 33%;">Уроки</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in context.users %}
+                <tr id="user_row_{{ loop.index }}">
+                    <td>{{ row.fio }}</td>
+                    <td>{{ row.scores }}</td>
+                    <td>{{ row.lesson }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <button type="button" class="submit-btn-success mt-3">Сохранить</button>
+  
+  </div>
+
+{% endblock %}

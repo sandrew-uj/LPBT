@@ -1,0 +1,37 @@
+{% extends "groups_base.html" %}
+
+{% block users %}
+
+<div class="main-cont" style="padding: 1rem;width: 300px;overflow: unset;">
+
+      <h5 class="flex-center mb-3">ПОЛЬЗОВАТЕЛИ</h5>
+  
+      <table>
+            <thead>
+                <tr>
+                    <th style="width: 50%;display: flex;justify-content: center;">ФИО</th>
+                    <th style="width: 50%;display: flex;justify-content: center;">Баллы</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in context.users %}
+                <tr id="user_row_{{ loop.index }}">
+                    <td>{{ row.fio }}</td>
+                    <td>{{ row.scores }}</td>
+                    <td class="dropdown" style="width: 100%;padding: 0;">
+                        <button class="dropbtn" style="width: 100%;">Действия</button>
+                        <div class="dropdown-content" style="height: max-content;width: max-content;">
+                            <button style="margin: 5px;width: 90px;height: 40px;" onclick="deleteRow({{ loop.index }})">Удалить</button>
+                            <button class="add-button" onclick="addRow('{{ row.fio }}')" style="margin: 5px;width: 90px;height: 40px;">Добавить</button>
+                        </div>
+                  </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <button type="button" class="btn submit-btn-success mt-3">Сохранить</button>
+  
+  </div>
+
+{% endblock %}

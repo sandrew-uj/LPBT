@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/7a9e6c1b6e.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-mxbs1zYnV9FXvGnB7iDjF5A0NwF2Jh2Rf3v4CP4SfQk6wCA+iJl6U6FVymKq/1Ys9d0Sh47gXnqOqMk3XPRw4A==" crossorigin="anonymous" />
+      <title>{{ title }}</title>
+</head>
+
+      <style>
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700');
+
+
+            /* ÑˆÐ°Ð±Ð»Ð¾Ð½Ð½Ñ‹Ðµ ÑÑ‚Ð¸Ð»Ð¸ --------------------- */
+
+            @keyframes load {
+                  from{
+                        opacity: 0;
+                  }
+                  to{
+                        opacity: 1;
+                  }
+            }
+
+            .load-animate {
+                  animation: load .4s both;
+            }
+
+            a{
+                  color: currentColor;
+                  text-decoration: none;
+            }
+
+            a:hover{
+                  color: currentColor;
+            }
+
+            .fa-solid.fa-heart{
+                  color: #8bc53f   !important;
+            }
+            
+            .btn:focus,
+                  .btn:active {
+                        box-shadow: none !important;
+                  }
+
+                  .btn-primary:active,
+                  .btn-primary:focus {
+                        box-shadow: none !important;
+                  }
+
+                  .btn-lg:active,
+                  .btn-lg:focus {
+                        box-shadow: none !important;
+            }
+
+            button{
+                  border: none;
+                  outline: none;
+                  background: none;
+            }
+
+            input, textarea{
+                  border: none;
+                  outline: none;
+            }
+
+            tr{
+                  display: flex;
+                  flex-wrap: wrap;
+            }
+
+            *{
+                  font-family: 'Montserrat' !important;
+            }
+
+            i{
+                  cursor: pointer;
+            }
+
+            .disable{
+                  visibility: hidden;
+            }
+
+            .special-font{
+                  font-family: 'Amatic SC', cursive;
+                  font-size: 33px;
+            }
+
+            .w-100{
+                  width: 100%;
+            }
+
+            .height-cont{
+                  display: flex;
+                  height: 100%;
+                  align-items: center;
+            }
+
+            .flex-center{
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-wrap: wrap;
+            }
+
+            .flex-between{
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  flex-wrap: wrap;
+            }
+
+            .abs-top-0{
+                  position: absolute;
+                  top: 0;
+            }
+
+            .abs-bot-0{
+                  position: absolute; 
+                  bottom: 0;
+            }
+
+            .main-cont{
+                  background: #f6f9fb;
+                  max-width: 380px;
+                  position: relative;
+                  margin-top: 135px;
+                  overflow: hidden;
+                  padding: 1.75rem;
+                  border-radius: 8px;
+            }
+
+            .question-input{
+                  padding: 10px;
+                  margin: 10px 0;
+                  width: 100%;
+                  color: #9cb0cd;
+                  border-radius: 4px;
+            }
+
+            .question-input::placeholder, .answer-block > :nth-child(2)::placeholder {
+                  color: #9cb0cd;
+            }
+
+            .answer-block{
+                  margin: 15px 0;
+                  display: flex;
+            }
+
+            .answer-block p{
+                  margin: 4px 8px 0 0;
+                  color: #2f5683;
+            }
+
+            .answer-block > :nth-child(2){
+                  padding: 5px 0 5px 18px;
+                  width: 80%;
+                  color: #9cb0cd;
+            }
+
+            .quation-add{
+                  padding: 10px;
+                  width: 100%;
+                  background: #2787F5;
+                  color: white;
+                  border-radius: 7px;
+                  margin-bottom: 10px;
+            }
+
+            .submit-btn{
+                  padding: 10px;
+                  width: 100%;
+                  background: white;
+                  color: #2787f5;
+                  border: 1px solid #2787f5;
+                  border-radius: 7px;
+                  transition: .3s;
+            }
+
+            .submit-btn:hover{
+                  background-color: #2787f5;
+                  color: white;
+            }
+
+            .input-cont{
+                  margin-bottom: 10px;
+            }
+
+            h6, label{
+                  color: #6883aa;
+            }
+
+            input[type="checkbox"]{
+                  margin: 0 7px;
+            }
+
+            svg{
+                  fill: #374c70;
+                  position: relative;
+                  bottom: 2px;
+            }
+
+            .svg-yes{
+                  fill: white;
+            }
+
+            /* Стиль для чекбокса */
+            .custom-checkbox {
+                  position: relative;
+                  top: 3px;
+                  width: 30px;
+                  height: 30px;
+            }
+
+            .custom-checkbox svg svg{
+                  fill: white;
+            }
+
+            .custom-checkbox input[type="checkbox"] {
+                  display: block !important;
+                  visibility: hidden;
+                  width: 0;
+                  height: 1px;
+            }
+
+            .custom-checkbox .checkbox-background {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  background: #8cc2ff;
+                  border-radius: 6px;
+            }
+
+            .custom-checkbox .radio-background {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  width: 100%;
+                  height: 100%;
+                  background: #8cc2ff;
+                  border-radius: 6px;
+            }
+
+            .radio-background div svg{
+                  margin-right: 10px;
+            }
+
+            .navbar{
+                  position: absolute;
+                  width: 100%;
+                  height: 60px;
+                  border-bottom: 2px solid #a2afbf;
+            }
+
+            .navbar a{
+                  margin: 10px 20px;
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: #374c70;
+            }
+
+            .submit-btn-success{
+                  padding: 10px;
+                  width: 100%;
+                  background: #2787f5;
+                  color: white;
+                  border-radius: 7px;
+                  transition: .3s;
+            }
+
+            .dropdown-content button:nth-child(2):active{
+                  background-color: #8bc53f;
+            }
+            
+      </style>
+
+      <body style="padding: 0 0 20px;display: flex;justify-content: center;flex-wrap: wrap;">
+
+            <div class="flex-center navbar">
+                  {% if not context.users %}
+                  <a href="{{ url_for('multiple') }}">multiple</a>
+                  <a href="{{ url_for('single') }}">single</a>
+                  <a href="{{ url_for('free_answer') }}">free_answer</a>
+                  {% else %}
+                  <a href="{{ url_for('modul_add') }}" style="position: absolute;left: 2px;top: 0px;font-size: 24px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+                  </a>
+                  {% endif %}
+            </div>
+
+            {% block content %}
+            
+            {% endblock %}
+
+      </body>
+</html>

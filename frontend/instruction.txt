@@ -1,0 +1,30 @@
+@app.route('/tblp/editing_groups/<int:id>', methods=['GET', 'POST'])
+списки, группы, каналы, базы
+в зависимости от админа. его id
+
+
+@app.route('/tblp/inclus_moduls/', methods=['GET', 'POST'])
+
+включённые модули и не включённые.
+в зависимости от админа. его id
+
+
+@app.route('/tblp/manage_groups/', methods=['GET', 'POST'])
+
+то же самое, что и с предыдущим
+
+
+@app.route('/tblp/achieved_users/', methods=['GET', 'POST'])
+@app.route('/tblp/past_users/', methods=['GET', 'POST'])
+@app.route('/tblp/admitted_users/', methods=['GET', 'POST'])
+
+достигшие, допущенные, назначенные.
+в зависимости от модуля. его modul_id
+
+
+@app.route('/tblp/lesson_of_module/', methods=['GET', 'POST'])
+уроки
+в зависимости от модуля (его modul_id) и в зависимости от создателя урока (user_id)
+
+уроки, которые не входят в модуль.
+в зависимости от создателя урока

@@ -1,0 +1,3 @@
+flask[all]
+requests[all]
+aiogram==2.25.1

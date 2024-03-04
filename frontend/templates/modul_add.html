@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/7a9e6c1b6e.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-mxbs1zYnV9FXvGnB7iDjF5A0NwF2Jh2Rf3v4CP4SfQk6wCA+iJl6U6FVymKq/1Ys9d0Sh47gXnqOqMk3XPRw4A==" crossorigin="anonymous" />
+      <title>{{ title }}</title>
+</head>
+
+      <body>
+            
+            <style>
+                  @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700');
+                  
+                  /* Шаблонные стили --------------------- */
+                  
+                  @keyframes load {
+                    from {
+                      opacity: 0;
+                    }
+                    to {
+                      opacity: 1;
+                    }
+                  }
+                  
+                  .load-animate {
+                    animation: load .4s both;
+                  }
+                  
+                  a {
+                    color: currentColor;
+                    text-decoration: none;
+                  }
+                  
+                  a:hover {
+                    color: currentColor;
+                  }
+                  
+                  .fa-solid.fa-heart {
+                    color: #8bc53f !important;
+                  }
+                  
+                  .btn:focus,
+                  .btn:active {
+                    box-shadow: none !important;
+                  }
+                  
+                  .btn-primary:active,
+                  .btn-primary:focus {
+                    box-shadow: none !important;
+                  }
+                  
+                  .btn-lg:active,
+                  .btn-lg:focus {
+                    box-shadow: none !important;
+                  }
+                  
+                  button {
+                    border: none;
+                    outline: none;
+                    background: none;
+                  }
+                  
+                  input,
+                  textarea {
+                    border: none;
+                    outline: none;
+                  }
+                  
+                  tr {
+                    display: flex;
+                    flex-wrap: wrap;
+                  }
+                  
+                  * {
+                    font-family: 'Montserrat' !important;
+                  }
+                  
+                  i {
+                    cursor: pointer;
+                  }
+                  
+                  .disable {
+                    visibility: hidden;
+                  }
+                  
+                  .special-font {
+                    font-family: 'Amatic SC', cursive;
+                    font-size: 33px;
+                  }
+                  
+                  .w-100 {
+                    width: 100%;
+                  }
+                  
+                  .height-cont {
+                    display: flex;
+                    height: 100%;
+                    align-items: center;
+                  }
+                  
+                  .flex-center {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+                  }
+                  
+                  .flex-between {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                  }
+                  
+                  .abs-top-0 {
+                    position: absolute;
+                    top: 0;
+                  }
+                  
+                  .abs-bot-0 {
+                    position: absolute;
+                    bottom: 0;
+                  }
+                  
+                  .main-cont {
+                    background: #f6f9fb;
+                    max-width: 300px;
+                    position: relative;
+                    margin-top: 95px;
+                    overflow: hidden;
+                    padding: 1.75rem;
+                    border-radius: 8px;
+                  }
+                  
+                  .question-input {
+                    padding: 10px;
+                    margin: 10px 0;
+                    width: 100%;
+                    color: #9cb0cd;
+                    border-radius: 4px;
+                  }
+                  
+                  .question-input::placeholder,
+                  .answer-block > :nth-child(2)::placeholder {
+                    color: #9cb0cd;
+                  }
+                  
+                  .answer-block {
+                    margin: 15px 0;
+                    display: flex;
+                  }
+                  
+                  .answer-block p {
+                    margin: 4px 8px 0 0;
+                    color: #2f5683;
+                  }
+                  
+                  .answer-block > :nth-child(2) {
+                    padding: 5px 0 5px 18px;
+                    width: 80%;
+                    color: #9cb0cd;
+                  }
+                  
+                  .quation-add {
+                    padding: 10px;
+                    width: 100%;
+                    background: #2787F5;
+                    color: white;
+                    border-radius: 7px;
+                    margin-bottom: 10px;
+                  }
+                  
+                  .submit-btn {
+                    padding: 10px;
+                    width: 100%;
+                    background: white;
+                    color: #2787f5;
+                    border: 1px solid #2787f5;
+                    border-radius: 7px;
+                    transition: .3s;
+                  }
+                  
+                  .submit-btn:hover {
+                    background-color: #2787f5;
+                    color: white;
+                  }
+                  
+                  .input-cont {
+                    margin-bottom: 10px;
+                  }
+                  
+                  h6,
+                  label {
+                    color: #6883aa;
+                  }
+                  
+                  input[type="checkbox"] {
+                    margin: 0 7px;
+                  }
+                  
+                  svg {
+                    fill: #374c70;
+                    position: relative;
+                    bottom: 2px;
+                  }
+                  
+                  .svg-yes {
+                    fill: white;
+                  }
+                  
+                  /* Стиль для чекбокса */
+                  .custom-checkbox {
+                    position: relative;
+                    top: 3px;
+                    width: 25px;
+                    height: 25px;
+                    margin: 0 10px;
+                  }
+                  
+                  .custom-checkbox input[type="checkbox"] {
+                    display: block !important;
+                    visibility: hidden;
+                    width: 0;
+                    height: 1px;
+                  }
+                  
+                  .custom-checkbox .checkbox-background {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    background: #8cc2ff;
+                    border-radius: 6px;
+                  }
+                  
+                  .custom-checkbox .radio-background {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    background: #8cc2ff;
+                    border-radius: 6px;
+                  }
+                  
+                  .navbar {
+                    position: absolute;
+                    width: 100%;
+                    height: 60px;
+                    border-bottom: 2px solid #a2afbf;
+                  }
+                  
+                  .navbar a {
+                    margin: 10px 20px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #374c70;
+                  }
+                  
+                  .container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                  }
+                  
+                  .block {
+                    width: 100%;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin: 5px 0;
+                  }
+                  
+                  button {
+                    padding: 5px 10px;
+                  }
+                  
+                  button:disabled {
+                    background-color: lightgray;
+                    cursor: not-allowed;
+                  }
+                  
+                  .block {
+                    display: flex;
+                    flex-wrap: wrap;
+                    height: max-content;
+                    margin: 10px 0;
+                  }
+                  
+                  .block p {
+                    width: 100%;
+                  }
+                  
+                  .block img,
+                  video,
+                  source,
+                  audio {
+                    max-width: 100%;
+                  }
+                  
+                  .block .buttons {
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: nowrap;
+                    width: 100%;
+                    background: #e1eaed;
+                  }
+                  
+                  .block .name {
+                    width: 100%;
+                  }
+                  
+                  .custom-checkbox {
+                    width: 35px;
+                    height: 35px;
+                    display: inline-block;
+                    cursor: pointer;
+                    background: green;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  }
+                  
+                  .custom-checkbox svg {
+                    width: 80%;
+                    height: 80%;
+                    fill: #efefef;
+                  }
+                  
+                  .cont-check {
+                    width: 100%;
+                    height: 45px;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin: 10px 0;
+                  }
+                  
+                  .cont-check p {
+                    width: 82%;
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                  }
+                  
+                  .invis {
+                    width: 0;
+                    height: 0;
+                    visibility: hidden;
+                  }
+                  
+                  .buttons a {
+                    margin-bottom: 10px;
+                  }
+            </style>
+      
+            <div class="container" style="margin: 40px 0;">
+                  <div class="row justify-content-center" style="width: 300px;">
+                        <div class="col-md-6 mt-5">
+                              <form method="post">
+                                          <div class="mb-3">
+                                                <label for="titleInput" class="form-label">Название</label>
+                                                <input type="text" name="name" class="form-control" id="titleInput" placeholder="Введите название" required>
+                                          </div>
+                                          <div class="mb-4">
+                                                <label for="descriptionInput" class="form-label">Описание</label>
+                                                <textarea class="form-control" name="description" id="descriptionInput" rows="4" placeholder="Введите описание"></textarea>
+                                          </div>
+                                          <div class="mb-3">
+                                                <div class="buttons" role="group" aria-label="User Group">
+                                                      <a href="{{ url_for('admitted_users') }}" type="button" class="btn submit-btn" data-value="allowed">Допущенные пользователи</a>
+                                                      <a href="{{ url_for('past_users') }}" type="button" class="btn submit-btn" data-value="passed">Прошедшие пользователи</a>
+                                                      <a href="{{ url_for('achieved_users') }}" type="button" class="btn submit-btn" data-value="achieved">Достигшие пользователи</a>
+                                                </div>
+                                          </div>
+                                          <div class="mb-4">
+                                                <button form="none" class="btn submit-btn">Уроки</button>
+                                          </div>
+                                          <div class="mb-4">
+                                                <button class="btn submit-btn-success">Сохранить</button>
+                                          </div>
+                              </form>
+                        </div>
+                  </div>
+            </div>
+      
+            <!-- Подключение Bootstrap JS (необходимо для некоторых функций Bootstrap) -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+      </body>
+    
+</html>

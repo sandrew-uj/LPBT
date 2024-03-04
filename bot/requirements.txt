@@ -1,0 +1,5 @@
+aiogram[all] == 2.25.1
+requests[all]
+pydantic[all]
+python-dotenv
+nest_asyncio[all]

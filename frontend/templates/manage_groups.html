@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модули</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700');
+
+        *{
+            font-family: 'montserrat';
+        }
+
+        .module-list {
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+        .module {
+            border: 1px solid #ccc;
+            padding: 10px;
+            padding-right: 3px;
+            margin: -1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .module.not-included, .module.included {
+            background-color: #f8f8f8;
+        }
+
+      .module.included span{
+            width: 90%;
+      }
+
+        .remove-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .submit-btn{
+            padding: 10px;
+            width: 100%;
+            background: white;
+            color: #2787f5;
+            border: 1px solid #2787f5;
+            border-radius: 7px;
+            transition: .3s;
+        }
+
+        .submit-btn:hover{
+            background-color: #2787f5;
+            color: white;
+        }
+
+        .buttons{
+            margin-top: 15px;
+            width: 100%;
+            display: flex;
+        }
+
+        .buttons button{
+            width: 50%;
+        }
+        
+        .invis {
+            width: 0;
+            height: 0;
+            visibility: hidden;
+        }
+
+        h4, h3{
+            margin: 20px 0 5px 0;
+        }
+
+    </style>
+</head>
+<body class="container">
+      <div style="width: 90%;margin-top: 0px;max-width: 540px;padding: 10px;">
+            <h3 style="margin-top: 0;">Управление Группами пользователей</h3>
+            
+            <h4>Включенные группы:</h4>
+            <div class="module-list">
+                  {% for module in context.inclus_groups %}
+                        <div class="module included" style="position: relative;">
+                              <span>{{ module.name }}</span>
+                              <p style="display: none;">{{ module.id }}</p>
+                              <button class="remove-button" onclick="removeModule('{{ module.id }}', 'yes')" style="margin-right: 10px;width: 32px;">
+                                    <label class="custom-checkbox" for="checkbox">
+                                          <svg style="width: 88%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path></svg>
+                                          </svg>     
+                                    </label>
+                              </button>
+                              <a href="/tblp/editing_groups/{{ module.id }}" style="padding: 7px 12px;border-left: 1px solid #b4bdc4;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg></a>
+                        </div>
+                  {% endfor %}
+            </div>
+
+            <h4>Не включенные группы:</h4>
+            <div class="module-list">
+                  {% for module in context.not_inclus_groups %}
+                        <div class="module not-included" style="position: relative;">
+                              <span style="width: 100%;">{{ module.name }}</span>
+                              <p style="display: none;">{{ module.id }}</p>
+                              <button class="remove-button" onclick="addModule('{{ module.id }}')" style="width: 37px;background-color: #4ca14c;">
+                                    <label class="custom-checkbox" for="checkbox">
+                                          <svg style="width: 85%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg>
+                                          </svg>          
+                                    </label>
+                              </button>
+                              <button class="remove-button" onclick="toggleRemoveText(this, '{{ module.id }}')" style="margin: 0 10px;width: 37px;">
+                                    <label class="custom-checkbox" for="checkbox">
+                                          <svg style="width: 85%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path></svg>
+                                          </svg>     
+                                    </label>
+                              </button>
+                              <a href="/tblp/editing_groups/{{ module.id }}" style="padding: 7px 12px;border-left: 1px solid #b4bdc4;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg></a>
+                        </div>
+                  {% endfor %}
+            </div>
+
+            <form method="post" class="buttons">
+                  <button type="button" class="submit-btn" style="margin-right: 10px;">Сохранить</button>
+                  <button class="submit-btn" type="button" onclick="saveData()">Отменить</button>
+            </form>
+      </div>
+
+      <script>
+
+      function toggleRemoveText(button, moduleId) {
+            button.textContent = "Удалить при сохранении";
+            button.style.width = "100%";
+            button.style.height = "100%";
+            button.style.position = "absolute";
+            button.style.right = "-10px";
+            button.style.transition = '.3s'
+            button.onclick = function() {
+                  removeModule(moduleId, 'non');
+            };
+      }
+
+      function addModule(moduleName) {
+            // Отправить запрос на добавление модуля на сервер
+            fetch('/tblp/inclus_moduls/', {
+                  method: 'POST',
+                  body: JSON.stringify({ action: 'add', module: moduleName }),
+                  headers: {
+                        'Content-Type': 'application/json'
+                  }
+            })
+            .then(response => response.text())
+            .then(data => {
+                  console.log('add');
+                  // Обновить страницу или выполнить другие действия при необходимости
+            });
+      }
+
+      function removeModule(moduleName, type) {
+            console.log(type)
+            // Отправить запрос на удаление модуля на сервер
+            fetch('/tblp/inclus_moduls/', {
+                  method: 'POST',
+                  body: JSON.stringify({ action: 'remove', module: moduleName }),
+                  headers: {
+                        'Content-Type': 'application/json'
+                  }
+            })
+            .then(response => response.text())
+            .then(data => {
+                  // Удалить элемент из списка на странице
+                  let modulesIncluded;
+                  if (type == 'yes'){
+                        modulesIncluded = document.querySelectorAll('.module.included p');
+                  }else{
+                        modulesIncluded = document.querySelectorAll('.module.not-included p');
+                  }
+                  let moduleElement;
+
+                  modulesIncluded.forEach(element => {
+                        if (element.textContent === moduleName) {
+                              moduleElement = element;
+                        }
+                  });
+
+                  if (moduleElement) {
+                        moduleElement.parentElement.remove();
+                  }
+            });
+      }
+      </script>
+      </body>
+</html>

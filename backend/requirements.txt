@@ -1,0 +1,4 @@
+pydantic[all]
+fastapi[all]
+sqlalchemy[all]
+sqlalchemy_utils[all]

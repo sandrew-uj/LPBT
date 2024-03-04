@@ -1,0 +1,97 @@
+{% extends "groups_base.html" %}
+
+{% block users %}
+
+
+<div class="main-cont" style="padding: 1rem;width: 300px;overflow: unset;">
+      <div class="w-100 flex-center mb-3"><h5>Добавленные уроки</h5></div>
+      {% for lesson in context.lessons %}
+      <div class="w-100 flex-center" style="flex-wrap: nowrap;white-space: pre;justify-content: space-between;">
+            <div>{{ lesson.name | truncate(17) }}</div>
+            <button style="margin: 5px;" onclick="this.parentElement.remove()"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></button>
+      </div>
+      {% endfor %}
+      
+      <button type="button" class="submit-btn-success mt-3" onclick="toggleDisplay()">Добавить</button>
+
+      <div class="dop-for-moduls mt-3" style="display: none;position: relative;top: -21px;padding-top: 18px;padding-left: 10px;background: white;border: 1px solid rgb(39, 135, 245);border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;"">
+            <div class="cont-check w-100 mb-2" style="display: flex;justify-content: space-between;">
+                  <p>Отображать свободные</p>
+                  <input type="checkbox" id="checkbox" name="stop-lesson" value="on" class="invis">
+                  <label class="custom-checkbox" for="checkbox" style="background: #4ca14c;position: relative;top: -2px;">
+                        <svg style="width: 53%;height: 70%;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg></svg>
+                  </label>
+            </div>
+
+            {% for item in context.new_lessons %}
+            <div class="cont-check w-100 mb-1" style="display: flex;justify-content: space-between;">
+                  <p>{{ item.name | truncate(17) }}</p>
+                  <div style="display: none;">{{ item.id }}</div>
+                  <input type="checkbox" id="checkbox{{ loop.index }}" value="on" style="display: none;">
+                  <label class="custom-checkbox" for="checkbox{{ loop.index }}" style="background: #4ca14c;position: relative;top: -2px;">
+                        <svg style="width: 53%;height: 70%;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg></svg>
+                  </label>
+            </div>
+            {% endfor %}
+      </div>
+
+      <button class="submit-btn-success mt-3">Сохранить</button>
+</div>
+
+<script>
+
+      function toggleDisplay() {
+            let element = document.querySelector(".dop-for-moduls");
+            if (element.style.display === 'block') {
+                element.style.display = 'none';
+            } else {
+                element.style.display = 'block';
+            }
+      }
+
+      var checkboxes = document.querySelectorAll('.custom-checkbox');
+      checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('click', function() {
+            var input = document.getElementById(checkbox.getAttribute('for'));
+            id = input.parentElement.childNodes[3].textContent
+            console.log(id)
+                  if (input.value === 'on') {
+                        data = {"id": id,"action": 'off'}
+                        input.value = 'off';
+                        this.style.background = 'red';
+                        this.querySelector('svg').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>';
+                  } else {
+                        data = {"id": id,"action": 'on'}
+                        input.value = 'on';
+                        this.style.background = '#4ca14c';
+                        this.querySelector('svg').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>';
+                  }
+                  console.log(data)
+
+                  if (data['id'] != ''){
+                        fetch('/tblp/lesson_of_module/', {
+                              method: 'POST',
+                              headers: {
+                              'Content-Type': 'application/json'
+                              },
+                              body: JSON.stringify(data)
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                              if (result.success) {
+                              console.log('OK')
+                              } else {
+                              alert("Ошибка при добавлении.");
+                              }
+                        })
+                        .catch(error => {
+                              console.error('Ошибка:', error);
+                        }); 
+                  }
+            });
+      });
+
+
+</script>
+
+{% endblock %}

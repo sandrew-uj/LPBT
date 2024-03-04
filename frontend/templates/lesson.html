@@ -1,0 +1,214 @@
+{% extends "base.html" %} 
+
+{% block content %}
+
+<div class="main-cont" style="padding: 1rem;">
+      <form method="post" id="sent">
+
+            <style>
+
+                  .invis{
+                        width: 0;
+                        height: 0;
+                        visibility: hidden;
+                        position: absolute;
+                  }
+
+                  .block div *:not(.buttons):not(button){
+                        width: 100%;
+                  }
+
+                  .block div button{
+                        margin: 0 10px;
+                  }
+
+                  .block .buttons{
+                        display: flex;
+                        justify-content: center;
+                  }
+
+            </style>
+
+            <div class="editable" style="border: 1px solid #b4bdc4;display: flex;flex-wrap: nowrap;">
+                  <input type="text" name="lesson" value="name" style="width: 100%;background: none;padding: 7px;">
+                  <button form="" style="padding: 7px 12px;border-left: 1px solid #b4bdc4;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg></button>
+            </div>
+
+            <div class="container" style="margin-top: 25px;">
+                  {% for media in context.media_list %}
+                  <div class="block">
+                        <div style="width: 100%;">
+                              {% if media.type == 'text' %}
+                              <p>{{ media.url }}</p>
+                              <input type="hidden" name="content[{{ loop.index0 }}][type]" value="text">
+                              <input type="hidden" name="content[{{ loop.index0 }}][name]" value="name{{ loop.index }}" class="name">
+                              {% elif media.type == 'photo' %}
+                              <img src="{{ media.url }}" alt="Фото">
+                              <input type="hidden" name="content[{{ loop.index0 }}][type]" value="photo">
+                              <input type="hidden" name="content[{{ loop.index0 }}][name]" value="name{{ loop.index }}" class="name">
+                              {% elif media.type == 'video' %}
+                              <video controls>
+                                    <source src="{{ media.url }}" type="video/mp4">
+                              </video>
+                              <input type="hidden" name="content[{{ loop.index0 }}][type]" value="video">
+                              <input type="hidden" name="content[{{ loop.index0 }}][name]" value="name{{ loop.index }}" class="name">
+                              {% elif media.type == 'audio' %}
+                              <audio controls>
+                                    <source src="{{ media.url }}" type="audio/mpeg">
+                              </audio>
+                              <input type="hidden" name="content[{{ loop.index0 }}][type]" value="audio">
+                              <input type="hidden" name="content[{{ loop.index0 }}][name]" value="name{{ loop.index }}" class="name">
+                              {% elif media.type == 'voice' %}
+                              <audio controls>
+                                    <source src="{{ media.url }}" type="audio/mpeg">
+                              </audio>
+                              <input type="hidden" name="content[{{ loop.index0 }}][type]" value="voice">
+                              <input type="hidden" name="content[{{ loop.index0 }}][name]" value="name{{ loop.index }}" class="name">
+                              {% endif %}
+                        </div>
+                        <div class="buttons">
+                              <button type="button" class="up-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg>
+                              </button>
+                              <button type="button" class="down-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
+                              </button>
+                  
+                              <!-- Добавляем инпут для номера и устанавливаем начальное значение -->
+                              <input type="hidden" name="content[{{ loop.index0 }}][content]" value="{{ media.url }}">
+                              <input type="number" name="content[{{ loop.index0 }}][number]" value="{{ loop.index }}" class="block-number invis">
+                              
+                              <button type="button" class="delete-button" onclick="deleteBlock(this)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0-45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                              </button>
+                        </div>
+                  </div>
+                  {% endfor %}
+            </div>
+
+            <div class="buttons" style="margin: 20px 0;">
+                  <div class="cont-check">
+                        <p>Стоп урок</p>
+                        <input type="checkbox" id="checkbox1" name="stop-lesson" value="on" class="invis">
+                        <label class="custom-checkbox" for="checkbox1" style="background: green;">
+                              <svg style="width: 70%;height: 70%;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg></svg>
+                        </label>
+                  </div>
+
+                  <div class="cont-check">
+                        <p>Добавить ДЗ</p>
+                        <input type="checkbox" id="checkbox2" value="on" style="display: none;">
+                        <label class="custom-checkbox" for="checkbox1" style="background: green;">
+                              <svg style="width: 70%;height: 70%;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg></svg>
+                        </label>
+                  </div>
+            </div>
+
+            <div class="w-100 flex-center" style="margin: 20px 0;">
+                  <button class="w-100 flex-center quation-add" form="sent" style="font-weight: 600;">Сохранить</button>
+                  <button form="none" onclick="window.location.reload()" class="w-100 flex-center quation-add" style="font-weight: 600;">Отменить</button>
+            </div>
+
+      </form>
+
+</div>
+
+<script>
+
+      var checkboxes = document.querySelectorAll('.custom-checkbox');
+      checkboxes.forEach(function(checkbox) {
+            var input = document.getElementById(checkbox.getAttribute('for'));
+
+            checkbox.addEventListener('click', function() {
+                  if (input.value === 'on') {
+                        input.value = 'off';
+                        this.style.background = 'red';
+                        this.querySelector('svg').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>';
+                  } else {
+                        input.value = 'on';
+                        this.style.background = 'green';
+                        this.querySelector('svg').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>';
+                  }
+            });
+      });
+
+
+      function deleteBlock(button) {
+            var block = button.parentNode.parentNode;
+            block.parentNode.removeChild(block);
+      }
+
+
+      document.addEventListener("DOMContentLoaded", function () {
+            // Функция для перемещения блока вверх
+            function moveBlockUp(block) {
+                  const container = block.parentNode;
+                  const currentIndex = Array.from(container.children).indexOf(block);
+                  if (currentIndex > 0) {
+                        const currentBlock = container.children[currentIndex];
+                        const aboveBlock = container.children[currentIndex - 1];
+                        container.insertBefore(currentBlock, aboveBlock);
+
+                        // Обновляем значения номеров блоков
+                        updateBlockNumbers(container);
+                  }
+            }
+
+            // Функция для перемещения блока вниз
+            function moveBlockDown(block) {
+                  const container = block.parentNode;
+                  const currentIndex = Array.from(container.children).indexOf(block);
+                  if (currentIndex < container.children.length - 1) {
+                        const currentBlock = container.children[currentIndex];
+                        const belowBlock = container.children[currentIndex + 1];
+                        container.insertBefore(belowBlock, currentBlock);
+
+                        // Обновляем значения номеров блоков
+                        updateBlockNumbers(container);
+                  }
+            }
+
+            // Функция для обновления номеров блоков
+            function updateBlockNumbers(container) {
+                  const blocks = container.children;
+                  for (let i = 0; i < blocks.length; i++) {
+                        const blockNumberInput = blocks[i].querySelector(".block-number");
+                        // if (blockNumberInput) {
+                        //       blockNumberInput.value = i + 1;
+                        // }
+                  }
+            }
+
+            const blocks = document.querySelectorAll(".block");
+
+            blocks.forEach((block) => {
+                  const upButton = block.querySelector(".up-button");
+                  const downButton = block.querySelector(".down-button");
+
+                  upButton.addEventListener("click", function () {
+                        moveBlockUp(block);
+                        // Увеличиваем значение input number на 1
+                        const numberInput = block.querySelector(".block-number");
+                        console.log(numberInput)
+                        if (numberInput) {
+                              numberInput.value = parseInt(numberInput.value) - 1;
+                        }
+                        console.log(numberInput.value)
+                  });
+
+                  downButton.addEventListener("click", function () {
+                        moveBlockDown(block);
+                        // Уменьшаем значение input number на 1
+                        const numberInput = block.querySelector(".block-number");
+                        console.log(numberInput)
+                        if (numberInput) {
+                              numberInput.value = parseInt(numberInput.value) + 1;
+                        }
+                        console.log(numberInput.value)
+                  });
+            });
+      });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %} 
+
+{% block content %}
+            
+<div class="main-cont">
+
+      <form method="post" action="/tblp/free_answer/">
+            <label for="question">Введите вопрос</label>
+            <input class="question-input" type="text" id="question" name="question" placeholder="Начните вводить вопрос..." required>
+            <br>
+            <input class="quation-add" type="submit" value="Отправить">
+      </form>
+
+</div>
+
+{% endblock %}

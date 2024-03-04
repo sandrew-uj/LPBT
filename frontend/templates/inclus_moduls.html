@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модули</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700');
+
+        *{
+            font-family: 'montserrat';
+        }
+
+        .module-list {
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+        .module {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: -1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .module.not-included,  .module.included{
+            background-color: #f8f8f8;
+        }
+        .remove-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .remove-button:hover {
+            background-color: darkred;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .submit-btn{
+            padding: 10px;
+            width: 100%;
+            background: white;
+            color: #2787f5;
+            border: 1px solid #2787f5;
+            margin: -1px;
+            transition: .3s;
+        }
+
+        .submit-btn:hover{
+            background-color: #2787f5;
+            color: white;
+        }
+
+        .buttons{
+            width: 100%;
+            display: flex;
+        }
+
+        .buttons button{
+            width: 51%;
+        }
+        
+        .invis {
+            width: 0;
+            height: 0;
+            visibility: hidden;
+        }
+
+        h4, h3{
+            margin: 20px 0 5px 0;
+        }
+
+    </style>
+</head>
+<body class="container">
+      <div style="margin-top: 0px;max-width: 540px;padding: 10px;">
+            <input class="invis" name="start_values" value="{'inclus_moduls': {{ context.inclus_moduls }}, not_inclus_moduls': {{ context.not_inclus_moduls }}}"></input>
+            <h3>Модули</h3>
+            
+            <h4>Включенные модули:</h4>
+            <div class="module-list">
+                  {% for module in context.inclus_moduls %}
+                        <div class="module included" style="position: relative;">
+                              <span style="white-space: pre;max-width: 90%;overflow: hidden;">{{ module.name }}</span>
+                              <p style="display: none;">{{ module.id }}</p>
+                              <button class="remove-button" onclick="removeModule('{{ module.id }}', 'yes')">
+                                    <label class="custom-checkbox" for="checkbox">
+                                          <svg style="width: 85%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path></svg>
+                                          </svg>     
+                                    </label>
+                              </button>
+                        </div>
+                  {% endfor %}
+            </div>
+
+            <h4>Не включенные модули:</h4>
+            <div class="module-list">
+                  {% for module in context.not_inclus_moduls %}
+                        <div class="module not-included" style="position: relative;">
+                              <span style="white-space: pre;max-width: 76%;overflow: hidden;">{{ module.name }}</span>
+                              <p style="display: none;">{{ module.id }}</p>
+                              <div>
+                                    <button class="remove-button" onclick="addModule('{{ module.id }}')" style="background-color: #4ca14c;">
+                                          <label class="custom-checkbox" for="checkbox">
+                                                <svg style="width: 85%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg>
+                                                </svg>          
+                                          </label>
+                                    </button>
+                                    <button class="remove-button" onclick="toggleRemoveText(this, '{{ module.id }}')">
+                                          <label class="custom-checkbox" for="checkbox">
+                                                <svg style="width: 85%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path></svg>
+                                                </svg>     
+                                          </label>
+                                    </button>
+                              </div>
+                        </div>
+                  {% endfor %}
+            </div>
+
+            <form method="post" class="buttons">
+                  <button type="button" class="submit-btn">Сохранить</button>
+                  <button class="submit-btn" type="button" onclick="saveData()">Отменить</button>
+            </form>
+      </div>
+
+      <script>
+
+      function toggleRemoveText(button, moduleId) {
+            if (button.textContent === "Удалить") {
+                  button.textContent = "Удалить при сохранении";
+                  button.style.width = "95%";
+                  button.style.height = "83%";
+                  button.style.position = "absolute";
+                  button.onclick = function() {
+                        removeModule(moduleId, 'non');
+                  };
+            } else if (button.textContent === "Удалить при сохранении") {
+                  button.textContent = "Удалить";
+                  button.style.width = "";
+                  button.onclick = function() {
+                        removeModule(moduleId, 'yes');
+                  };
+            } 
+      }
+
+      function addModule(moduleName) {
+            // Отправить запрос на добавление модуля на сервер
+            fetch('/tblp/inclus_moduls', {
+                  method: 'POST',
+                  body: JSON.stringify({ action: 'add', module: moduleName }),
+                  headers: {
+                        'Content-Type': 'application/json'
+                  }
+            })
+            .then(response => response.text())
+            .then(data => {
+                  console.log('add');
+                  // Обновить страницу или выполнить другие действия при необходимости
+            });
+      }
+
+      function removeModule(moduleName, type) {
+            console.log(type)
+            // Отправить запрос на удаление модуля на сервер
+            fetch('/tblp/inclus_moduls', {
+                  method: 'POST',
+                  body: JSON.stringify({ action: 'remove', module: moduleName }),
+                  headers: {
+                        'Content-Type': 'application/json'
+                  }
+            })
+            .then(response => response.text())
+            .then(data => {
+                  // Удалить элемент из списка на странице
+                  let modulesIncluded;
+                  if (type == 'yes'){
+                        modulesIncluded = document.querySelectorAll('.module.included p');
+                  }else{
+                        modulesIncluded = document.querySelectorAll('.module.not-included p');
+                  }
+                  let moduleElement;
+
+                  modulesIncluded.forEach(element => {
+                        if (element.textContent === moduleName) {
+                              moduleElement = element;
+                        }
+                  });
+
+                  if (moduleElement) {
+                        moduleElement.parentElement.remove();
+                  }
+            });
+      }
+      </script>
+      </body>
+</html>

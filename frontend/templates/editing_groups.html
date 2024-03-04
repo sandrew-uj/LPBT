@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модули</title>
+    <style>
+            @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700');
+
+            *{
+                  font-family: 'montserrat';
+            }
+
+            .module-list {
+                  display: flex;
+                  flex-direction: column;
+            }
+            .module {
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                  margin: 10px 0;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+            }
+            .module.included {
+                  background-color: #e0ffe0;
+            }
+            .module.not-included {
+                  background-color: #f8f8f8;
+            }
+
+            .module.included span{
+                  width: 100%;
+            }
+
+            .remove-button {
+                  background-color: red;
+                  color: white;
+                  border: none;
+                  padding: 5px;
+                  cursor: pointer;
+            }
+            .container{
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+            }
+
+            .submit-btn{
+                  padding: 10px;
+                  width: 100%;
+                  background: white;
+                  color: #2787f5;
+                  border: 1px solid #2787f5;
+                  border-radius: 7px;
+                  transition: .3s;
+            }
+
+            .submit-btn:hover{
+                  background-color: #2787f5;
+                  color: white;
+            }
+
+            * {
+            font-family: 'montserrat';
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            max-width: 540px;
+            padding: 10px;
+        }
+
+        h3 {
+            margin: 20px 0 5px 0;
+        }
+
+        .list-container {
+            max-height: 200px;
+            overflow: auto;
+        }
+
+        .list {
+            border: 1px solid #ccc;
+            margin: -1px;
+            padding: 10px;
+        }
+
+        .list-title {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .list-title svg {
+            margin-left: 5px;
+        }
+
+        .list-content {
+            display: none;
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-content li {
+            margin-bottom: 5px;
+        }
+
+        .horizontal-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 105%;
+            padding: 10px;
+            border: 1px solid lightgray;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            .buttons button{
+                  width: 50%;
+            }
+            
+            .invis {
+                  width: 0;
+                  height: 0;
+                  visibility: hidden;
+            }
+
+            h4, h3{
+                  margin: 20px 0 5px 0;
+            }
+
+            button {
+                  padding: 10px 20px;
+                  font-size: 16px;
+                  cursor: pointer;
+            }
+            
+            input:focus {
+                  outline: none;
+                  border: 1px solid #c5c5c5;border-right: none;
+            }
+
+    </style>
+</head>
+<body class="container">
+      <div style="width: 100%;max-width: 440px;margin-top: 0px;padding: 10px;">
+            <div style="margin-top: 20px;">
+                  <h5 style="margin-bottom: 10px;font-size: 17px;">Название группы</h5>
+                  <div class="editable" style="display: flex;flex-wrap: nowrap;">
+                        <input type="text" name="lesson" value="name" style="width: 100%;background: none;padding: 7px;border-radius: 0px;border: 1px solid #c5c5c5;border-right: none;">
+                        <button form="" style="padding: 7px 12px;    border-radius: 0px;border: 1px solid #c5c5c5;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg></button>
+                  </div>
+            </div>
+
+            <div class="container">
+                  <div class="horizontal-button" id="activateButton">
+                        <span>Включить</span><span style="margin-left: 5px;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg></span></span>
+                  </div>
+                  <div class="" id="listContainer" style="display: none;width: 100%;">
+                        {% for items in context.inclus_lists %}
+                        {% set outerLoopIndex = loop.index %}
+                        <div class="list">
+                              <h4 class="list-title" onclick="toggleList(this)">{{ items.name }} <span style="margin-left: 5px;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg></span></h4>
+                              <ul class="list-container" style="display: none;overflow-x: hidden;">
+                                    {% for item in items.list %}
+                                    <div style="width: 98%;display: flex;justify-content: space-between;margin: 5px;">
+                                          <li style="display: flex;align-items: center;">{{ item.name }}</li>
+                                          <div>
+                                                <button class="remove-button" onclick="addGroup('{{ item.id }}', {{ outerLoopIndex }}, 'included')" style="width: 28px;background-color: #4ca14c;">
+                                                      <label class="custom-checkbox" for="checkbox">
+                                                            <svg style="width: 85%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg>
+                                                            </svg>          
+                                                      </label>
+                                                </button>
+                                                <button class="remove-button" onclick="removeGroup(this, '{{ item.id }}', {{ outerLoopIndex }}, 'included')" style="width: 28px;background-color: red;">
+                                                      <label class="custom-checkbox" for="checkbox">
+                                                            <svg style="width: 85%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path></svg>
+                                                            </svg>     
+                                                      </label>
+                                                </button>
+                                          </div>
+                                    </div>      
+                                    {% endfor %}
+                              </ul>
+                        </div>
+                        {% endfor %}
+                  </div>
+            </div>
+
+            <div class="container">
+                  <div class="horizontal-button" id="excludeButton">
+                        <span>Исключить</span><span style="margin-left: 5px;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg></span></span>
+                  </div>
+                  <div class="" id="excludeListContainer" style="display: none;width: 100%;">
+                        {% for items in context.not_inclus_lists %}
+                        {% set outerLoopIndex = loop.index %}
+                        <div class="list">
+                              <h4 class="list-title" onclick="toggleList(this)">{{ items.name }} <span style="margin-left: 5px;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg></span></h4>
+                              <ul class="list-container" style="display: none;overflow-x: hidden;">
+                                    {% for item in items.list %}
+                                    <div style="width: 98%;display: flex;justify-content: space-between;margin: 5px;">
+                                          <li style="display: flex;align-items: center;">{{ item.name }}</li>
+                                          <div>
+                                                <button class="remove-button" onclick="addGroup('{{ item.id }}', {{ outerLoopIndex }}, '  not_include')" style="background-color: #4ca14c;">
+                                                      <label class="custom-checkbox" for="checkbox">
+                                                            <svg style="width: 85%;height: 85%;font-size: 20px;position: relative;top: -1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg>
+                                                            </svg>          
+                                                      </label>
+                                                </button>
+                                          </div>
+                                    </div>
+                                    {% endfor %}
+                              </ul>
+                        </div>
+                        {% endfor %}
+                  </div>
+            </div>
+
+            <form method="post" class="buttons" style="width: 100%;margin-top: 20px;">
+                  <button type="button" class="submit-btn" style="margin-right: -10px;margin-left: 3px;width: 50%;border-radius: 0;" onclick="location.reload()">Сохранить</button>
+                  <button class="submit-btn" type="button" onclick="saveData()" style="width: 50%;border-radius: 0;">Отменить</button>
+            </form>
+        </div>
+
+      <script>
+
+      function addGroup(GroupName, loop, is_include) {
+            let dict = {
+                  1: 'lists',
+                  2: 'groups',
+                  3: 'chanals',
+                  4: 'bases'
+            }
+            // Отправить запрос на добавление модуля на сервер
+            fetch('/tblp/editing_groups/{{ context.group_id }}', {
+                  method: 'POST',
+                  body: JSON.stringify({ action: 'add', module: GroupName, 'type': dict[loop], 'is_include': is_include }),
+                  headers: {
+                        'Content-Type': 'application/json'
+                  }
+            })
+            .then(response => response.text())
+            .then(data => {
+                  console.log('add');
+                  // Обновить страницу или выполнить другие действия при необходимости
+            });
+      }
+
+      function removeGroup(el, GroupName, is_include) {
+            console.log(el)
+            // Отправить запрос на удаление модуля на сервер
+            fetch('/tblp/editing_groups/{{ context.group_id }}', {
+                  method: 'POST',
+                  body: JSON.stringify({ action: 'remove', module: GroupName, 'is_include': is_include }),
+                  headers: {
+                        'Content-Type': 'application/json'
+                  }
+            })
+            .then(response => response.text())
+            .then(data => {
+                  el.parentElement.parentElement.remove()
+            });
+      }
+
+      // Функция для переключения отображения списка
+      function toggleMainList() {
+            var listContainer = document.getElementById('listContainer');
+            listContainer.style.display = (listContainer.style.display === 'none' || listContainer.style.display === '') ? 'block' : 'none';
+      }
+
+      // Найти кнопку "Включить" и добавить обработчик события
+      var activateButton = document.getElementById('activateButton');
+      activateButton.addEventListener('click', toggleMainList);
+            
+      function toggleList(titleElement) {
+            const contentElement = titleElement.nextElementSibling;
+            contentElement.style.display = contentElement.style.display === "none" ? "block" : "none";
+      }
+
+      function toggleExcludeList() {
+            var excludeListContainer = document.getElementById('excludeListContainer');
+            excludeListContainer.style.display = (excludeListContainer.style.display === 'none' || excludeListContainer.style.display === '') ? 'block' : 'none';
+      }
+
+      // Найти кнопку "Исключить" и добавить обработчик события
+      var excludeButton = document.getElementById('excludeButton');
+      excludeButton.addEventListener('click', toggleExcludeList);
+
+      </script>
+      </body>
+</html>

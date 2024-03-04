@@ -1,0 +1,27 @@
+location /tblp/6204716568:AAGZswb927RP1rCUgDEvdyCVR27njeRicP4 {
+        proxy_pass http://172.16.30.2:7001/tblp/6204716568:AAGZswb927RP1rCUgDEvdyCVR27njeRicP4;
+        proxy_headers_hash_max_size 512;
+        proxy_headers_hash_bucket_size 128;
+        client_body_buffer_size 10k;
+        client_max_body_size 8m;
+        proxy_ignore_client_abort on;
+        proxy_set_header Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+
+
+}
+
+location /tblp/6204716568:AAGZswb927RP1rCUgDEvdyCVR27njeRicP4/webapp {
+        proxy_pass http://172.16.30.4:9001/tblp6204716568:AAGZswb927RP1rCUgDEvdyCVR27njeRicP4/webapp;
+        proxy_headers_hash_max_size 512;
+        proxy_headers_hash_bucket_size 128;
+        client_body_buffer_size 10k;
+        client_max_body_size 8m;
+        proxy_ignore_client_abort on;
+        proxy_set_header Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+
+
+}

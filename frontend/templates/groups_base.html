@@ -1,0 +1,445 @@
+{% extends "base.html" %} 
+
+{% block content %}
+
+<style>
+
+/* Стили для выпадающего меню */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: #333;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #2980B9;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700');
+
+
+            /* ÑˆÐ°Ð±Ð»Ð¾Ð½Ð½Ñ‹Ðµ ÑÑ‚Ð¸Ð»Ð¸ --------------------- */
+
+            @keyframes load {
+                  from{
+                        opacity: 0;
+                  }
+                  to{
+                        opacity: 1;
+                  }
+            }
+
+            .load-animate {
+                  animation: load .4s both;
+            }
+
+            a{
+                  color: currentColor;
+                  text-decoration: none;
+            }
+
+            a:hover{
+                  color: currentColor;
+            }
+
+            .fa-solid.fa-heart{
+                  color: #8bc53f   !important;
+            }
+            
+            .btn:focus,
+                  .btn:active {
+                        box-shadow: none !important;
+                  }
+
+                  .btn-primary:active,
+                  .btn-primary:focus {
+                        box-shadow: none !important;
+                  }
+
+                  .btn-lg:active,
+                  .btn-lg:focus {
+                        box-shadow: none !important;
+            }
+
+            button{
+                  border: none;
+                  outline: none;
+                  background: none;
+            }
+
+            input, textarea{
+                  border: none;
+                  outline: none;
+            }
+
+            tr{
+                  display: flex;
+                  flex-wrap: wrap;
+            }
+
+            *{
+                  font-family: 'Montserrat' !important;
+            }
+
+            i{
+                  cursor: pointer;
+            }
+
+            .disable{
+                  visibility: hidden;
+            }
+
+            .special-font{
+                  font-family: 'Amatic SC', cursive;
+                  font-size: 33px;
+            }
+
+            .w-100{
+                  width: 100%;
+            }
+
+            .height-cont{
+                  display: flex;
+                  height: 100%;
+                  align-items: center;
+            }
+
+            .flex-center{
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-wrap: wrap;
+            }
+
+            .flex-between{
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  flex-wrap: wrap;
+            }
+
+            .abs-top-0{
+                  position: absolute;
+                  top: 0;
+            }
+
+            .abs-bot-0{
+                  position: absolute; 
+                  bottom: 0;
+            }
+
+            .main-cont{
+                  background: #f6f9fb;
+                  max-width: 380px;
+                  position: relative;
+                  margin-top: 135px;
+                  overflow: hidden;
+                  padding: 1.75rem;
+                  border-radius: 8px;
+            }
+
+            .question-input{
+                  padding: 10px;
+                  margin: 10px 0;
+                  width: 100%;
+                  color: #9cb0cd;
+                  border-radius: 4px;
+            }
+
+            .question-input::placeholder, .answer-block > :nth-child(2)::placeholder {
+                  color: #9cb0cd;
+            }
+
+            .answer-block{
+                  margin: 15px 0;
+                  display: flex;
+            }
+
+            .answer-block p{
+                  margin: 4px 8px 0 0;
+                  color: #2f5683;
+            }
+
+            .answer-block > :nth-child(2){
+                  padding: 5px 0 5px 18px;
+                  width: 80%;
+                  color: #9cb0cd;
+            }
+
+            .quation-add{
+                  padding: 10px;
+                  width: 100%;
+                  background: #2787F5;
+                  color: white;
+                  border-radius: 7px;
+                  margin-bottom: 10px;
+            }
+
+            .submit-btn{
+                  padding: 10px;
+                  width: 100%;
+                  background: white;
+                  color: #2787f5;
+                  border: 1px solid #2787f5;
+                  border-radius: 7px;
+                  transition: .3s;
+            }
+
+            .submit-btn:hover{
+                  background-color: #2787f5;
+                  color: white;
+            }
+
+            .input-cont{
+                  margin-bottom: 10px;
+            }
+
+            h6, label{
+                  color: #6883aa;
+            }
+
+            input[type="checkbox"]{
+                  margin: 0 7px;
+            }
+
+            svg{
+                  fill: #374c70;
+                  position: relative;
+                  bottom: 2px;
+            }
+
+            .svg-yes{
+                  fill: white;
+            }
+
+            /* Стиль для чекбокса */
+            .custom-checkbox {
+                  position: relative;
+                  top: 3px;
+                  width: 25px;
+                  height: 25px;
+                  margin: 0 10px;
+            }
+
+            .custom-checkbox input[type="checkbox"] {
+                  display: block !important;
+                  visibility: hidden;
+                  width: 0;
+                  height: 1px;
+            }
+
+            .custom-checkbox .checkbox-background {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  background: #8cc2ff;
+                  border-radius: 6px;
+            }
+
+            .custom-checkbox .radio-background {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  background: #8cc2ff;
+                  border-radius: 6px;
+            }
+
+            .navbar{
+                  position: absolute;
+                  width: 100%;
+                  height: 60px;
+                  border-bottom: 2px solid #a2afbf;
+            }
+
+            .navbar a{
+                  margin: 10px 20px;
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: #374c70;
+            }
+
+            .submit-btn-success{
+                  padding: 10px;
+                  width: 100%;
+                  background: #2787f5;
+                  color: white;
+                  border-radius: 7px;
+                  transition: .3s;
+            }
+
+            .dropdown-content button:nth-child(2):active{
+                  background-color: #8bc53f;
+            }
+            
+
+            table {
+                  border-collapse: collapse;
+                  width: 100%;
+            }
+
+            th, td {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+            }
+
+            svg{
+                  fill: #374c70;
+                  position: relative;
+                  bottom: 2px;
+            }
+
+            .svg-yes{
+                  fill: white;
+            }
+
+            /* Стиль для чекбокса */
+            .custom-checkbox {
+                  position: relative;
+                  top: 3px;
+                  width: 30px;
+                  height: 30px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+            }
+
+            .custom-checkbox svg svg{
+                  fill: white;
+            }
+
+            .custom-checkbox input[type="checkbox"] {
+                  display: block !important;
+                  visibility: hidden;
+                  width: 0;
+                  height: 1px;
+            }
+
+            .custom-checkbox .checkbox-background {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  background: #8cc2ff;
+                  border-radius: 6px;
+            }
+
+            .custom-checkbox .radio-background {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  background: #8cc2ff;
+                  border-radius: 6px;
+            }
+
+            .invis{
+                  width: 0;
+                  height: 0;
+                  visibility: hidden;
+                  position: absolute;
+            }
+
+</style>
+
+{% block users %}
+
+{% endblock %}
+
+<script>
+      
+      // Функция для отправки запроса на добавление группы на сервер
+      function addGroup(groupName) {
+            const data = { "name": groupName };
+
+            fetch('/tblp/admitted_users/', {
+                  method: 'POST',
+                  headers: {
+                        'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                  if (result.success) {
+                        tableData.push(groupName);
+                  } else {
+                        alert("Ошибка при добавлении группы.");
+                  }
+            })
+            .catch(error => {
+                  console.error('Ошибка:', error);
+            });
+      }
+
+      function addRow(fio) {
+            if (fio !== null && fio.trim() !== "") {
+                  var data = { "fio": fio }; // Подготовьте данные для отправки на сервер
+                  fetch('/tblp/admitted_users/', {
+                        method: 'POST',
+                        headers: {
+                              'Content-Type': 'application/json' // Убедитесь, что указан правильный заголовок Content-Type
+                        },
+                        body: JSON.stringify(data)
+                  })
+                  .then(response => response.json())
+                  .then(result => {
+                        if (result.success) {
+                              tableData.push(fio);
+                        } else {
+                              alert("Ошибка при добавлении пользователя.");
+                        }
+                  })
+                  .catch(error => {
+                        console.error('Ошибка:', error);
+                  });
+            }
+      }
+
+
+      function deleteRow(rowNumber) {
+          var row = document.getElementById('user_row_' + rowNumber);
+          if (row) {
+              row.remove();
+          }
+      }
+
+      function deleteGroupRow(rowNumber) {
+          var row = document.getElementById('group_row_' + rowNumber);
+          if (row) {
+              row.remove();
+          }
+      }
+
+</script>
+
+{% endblock %}

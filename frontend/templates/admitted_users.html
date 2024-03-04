@@ -1,0 +1,134 @@
+{% extends "groups_base.html" %}
+
+{% block users %}
+
+<div class="main-cont" style="padding: 1rem;width: 300px;overflow: unset;margin-top:100px;">
+
+    <h5 class="flex-center mb-3">ПОЛЬЗОВАТЕЛИ</h5>
+
+    <table>
+          <thead>
+              <tr>
+                  <th style="width: 33%;display: flex;justify-content: center;">ФИО</th>
+                  <th style="width: 33%;display: flex;justify-content: center;">Баллы</th>
+                  <th style="width: 33%;display: flex;justify-content: center;">Действие</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for row in context.users %}
+              <tr id="user_row_{{ loop.index }}">
+                  <td>{{ row.fio }}</td>
+                  <td>{{ row.scores }}</td>
+                  <td class="dropdown" style="width: 100%;padding: 0;">
+                      <button class="dropbtn" style="width: 100%;">Действия</button>
+                      <div class="dropdown-content" style="height: max-content;width: max-content;">
+                          <button style="margin: 5px;width: 90px;height: 40px;" onclick="deleteRow({{ loop.index }})">Удалить</button>
+                          <button class="add-button" onclick="addRow('{{ row.fio }}')" style="margin: 5px;width: 90px;height: 40px;">Добавить</button>
+                      </div>
+                </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+
+</div>
+
+<div class="main-cont" style="padding: 1rem;width: 300px;overflow: unset;margin-top:100px;">
+
+    <h5 class="flex-center mb-3">ГРУППЫ</h5>
+
+    <table>
+          <thead>
+              <tr>
+                  <th style="width: 50%;display: flex;justify-content: center;">Название</th>
+                  <th style="width: 50%;display: flex;justify-content: center;">Действия</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for group in context.groups %}
+              <tr id="group_row_{{ loop.index }}">
+                  <td>{{ group.name }}</td>
+                  <td class="dropdown" style="width: 100%;padding: 0;">
+                      <button class="dropbtn" style="width: 100%;">Действия</button>
+                      <div class="dropdown-content" style="height: max-content;width: max-content;">
+                          <button style="margin: 5px;width: 90px;height: 40px;" onclick="deleteRow({{ loop.index }})">Удалить</button>
+                          <button class="add-button" onclick="addGroup('{{ group.name }}')" style="margin: 5px;width: 90px;height: 40px;">Добавить</button>
+                      </div>
+                </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      
+      <button type="button" class="btn submit-btn-success mt-3">Сохранить</button>
+
+</div>
+
+<script>
+    
+    // Функция для отправки запроса на добавление группы на сервер
+    function addGroup(groupName) {
+          const data = { "name": groupName };
+
+          fetch('/tblp/admitted_users/', {
+                method: 'POST',
+                headers: {
+                      'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(result => {
+                if (result.success) {
+                      tableData.push(groupName);
+                } else {
+                      alert("Ошибка при добавлении группы.");
+                }
+          })
+          .catch(error => {
+                console.error('Ошибка:', error);
+          });
+    }
+
+    function addRow(fio) {
+          if (fio !== null && fio.trim() !== "") {
+                var data = { "fio": fio }; // Подготовьте данные для отправки на сервер
+                fetch('/tblp/admitted_users/', {
+                      method: 'POST',
+                      headers: {
+                            'Content-Type': 'application/json' // Убедитесь, что указан правильный заголовок Content-Type
+                      },
+                      body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(result => {
+                      if (result.success) {
+                            tableData.push(fio);
+                      } else {
+                            alert("Ошибка при добавлении пользователя.");
+                      }
+                })
+                .catch(error => {
+                      console.error('Ошибка:', error);
+                });
+          }
+    }
+
+
+    function deleteRow(rowNumber) {
+        var row = document.getElementById('user_row_' + rowNumber);
+        if (row) {
+            row.remove();
+        }
+    }
+
+    function deleteGroupRow(rowNumber) {
+        var row = document.getElementById('group_row_' + rowNumber);
+        if (row) {
+            row.remove();
+        }
+    }
+
+</script>
+
+{% endblock %}
